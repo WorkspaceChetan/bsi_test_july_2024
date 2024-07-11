@@ -22,19 +22,15 @@ import { useCallback, useEffect, useState } from "react";
 import { FavoriteUsersServices } from "@/services/favoriteUsers.services";
 
 export type FavoriteUsersListingProps = {
-  AllUsers: AllUsers;
+  allUsers: AllUsers;
 };
-const FavioriteUsersListing = ({
-  allUsers,
-}: {
-  allUsers: FavoriteUsersListingProps;
-}) => {
+const FavioriteUsersListing = ({ allUsers }: FavoriteUsersListingProps) => {
   const [filter, setFilter] = useState({
     page: 1,
     pageSize: 10,
-    total: allUsers.AllUsers.total,
+    total: allUsers.total,
   });
-  const [users, setUsers] = useState(allUsers.AllUsers.users);
+  const [users, setUsers] = useState(allUsers.users);
 
   const fetchUsers = useCallback((users: User[]) => {
     const favoriteUsers = FavoriteUsersServices.getFavoriteUsers();
@@ -94,7 +90,8 @@ const FavioriteUsersListing = ({
         <Paper sx={{ width: "100%", overflow: "hidden" }}>
           <TableContainer
             sx={{ width: "100%" }}
-            data-e2e="users-table-card-table-container">
+            data-e2e="users-table-card-table-container"
+          >
             <Table>
               <UsersListHead />
               <TableBody>
@@ -122,7 +119,8 @@ const FavioriteUsersListing = ({
                           justifyContent: "center",
                           alignItems: "center",
                           p: 2,
-                        }}>
+                        }}
+                      >
                         <Typography variant="body1">
                           User is not found.
                         </Typography>
