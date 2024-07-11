@@ -1,5 +1,4 @@
 import UserListing from "@/components/UserListing";
-import { FavoriteUsersServices } from "@/services/favoriteUsers.services";
 import { UserService } from "@/services/user.services";
 
 export default async function Home() {

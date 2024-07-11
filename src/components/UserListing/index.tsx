@@ -39,7 +39,7 @@ const UserListing = ({ allUsers }: { allUsers: AllUsers }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [text, setText] = useState<string>();
 
-  const fetchMovies = useCallback((users: User[]) => {
+  const fetchUsers = useCallback((users: User[]) => {
     const favoriteUsers = FavoriteUsersServices.getFavoriteUsers();
 
     const userData = [...users].map((user) => {
@@ -71,11 +71,10 @@ const UserListing = ({ allUsers }: { allUsers: AllUsers }) => {
       }
 
       setFilter({ ...filter, page, pageSize, total: allUsers.total });
-      setUsers(allUsers.users);
-      fetchMovies(allUsers.users);
+      fetchUsers(allUsers.users);
       setIsLoading(false);
     },
-    [fetchMovies, filter]
+    [fetchUsers, filter]
   );
 
   const handleChangePage = useCallback(
@@ -105,12 +104,7 @@ const UserListing = ({ allUsers }: { allUsers: AllUsers }) => {
     } else {
       FavoriteUsersServices.addToFavoriteUsers(id);
     }
-
-    const updatedUsers = [...users].map((user) =>
-      user.id === id ? { ...user, favorite: !user.favorite } : user
-    );
-
-    setUsers(updatedUsers);
+    fetchUsers(users);
   };
 
   const handleCSVExport = () => {
@@ -135,7 +129,7 @@ const UserListing = ({ allUsers }: { allUsers: AllUsers }) => {
   }, [text]);
 
   useEffect(() => {
-    fetchMovies(users);
+    fetchUsers(users);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

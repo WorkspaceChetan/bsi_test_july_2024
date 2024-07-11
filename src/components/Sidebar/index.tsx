@@ -8,8 +8,6 @@ import {
   List,
   ListItem,
   ListItemButton,
-  ListItemIcon,
-  ListItemText,
 } from "@mui/material";
 import Link from "next/link";
 import { useState } from "react";
@@ -42,7 +40,7 @@ const Sidebar = () => {
               <ListItem onClick={toggleDrawer(false)}>
                 <Box
                   component={Link}
-                  href="/"
+                  href="/favorite-users"
                   sx={{ textDecoration: "none", color: "black", width: "100%" }}
                 >
                   <ListItemButton>Favorite Users</ListItemButton>

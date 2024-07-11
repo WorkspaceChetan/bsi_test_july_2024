@@ -9,7 +9,6 @@ import {
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Star";
 import FavoriteBorderIcon from "@mui/icons-material/StarBorder";
-import { useState } from "react";
 import Link from "next/link";
 import { getFormatedDate } from "@/ustils/common.utils";
 
