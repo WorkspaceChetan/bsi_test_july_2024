@@ -21,7 +21,10 @@ const Sidebar = () => {
 
   return (
     <>
-      <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2 }}>
+      <Box
+        sx={{ display: "flex", justifyContent: "flex-end", mb: 2 }}
+        data-e2e="sidebar"
+      >
         <IconButton onClick={toggleDrawer(true)}>
           <Menu />
         </IconButton>

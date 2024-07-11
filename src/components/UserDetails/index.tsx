@@ -13,18 +13,12 @@ import FavoriteBorderIcon from "@mui/icons-material/StarBorder";
 import { FavoriteUsersServices } from "@/services/favoriteUsers.services";
 import { useCallback, useEffect, useState } from "react";
 
-const UserDetails = ({ userDetails }: { userDetails: User }) => {
+export type UserDetailsProps = {
+  userDetails: User;
+};
+
+const UserDetails = ({ userDetails }: UserDetailsProps) => {
   const [user, setUser] = useState(userDetails);
-
-  const handleClickFavorite = (id: number, isFavorite?: boolean) => {
-    if (isFavorite) {
-      FavoriteUsersServices.removeFromFavoriteUsers(id);
-    } else {
-      FavoriteUsersServices.addToFavoriteUsers(id);
-    }
-
-    fetchUser(user);
-  };
 
   const fetchUser = useCallback((user: User) => {
     const favoriteUsers = FavoriteUsersServices.getFavoriteUsers();
@@ -37,13 +31,23 @@ const UserDetails = ({ userDetails }: { userDetails: User }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const handleClickFavorite = (id: number, isFavorite?: boolean) => {
+    if (isFavorite) {
+      FavoriteUsersServices.removeFromFavoriteUsers(id);
+    } else {
+      FavoriteUsersServices.addToFavoriteUsers(id);
+    }
+
+    fetchUser(user);
+  };
+
   useEffect(() => {
     fetchUser(user);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <UserDetailsContainer>
+    <UserDetailsContainer data-e2e="user-details-container">
       <Box
         component="img"
         src={user.image}
@@ -57,7 +61,7 @@ const UserDetails = ({ userDetails }: { userDetails: User }) => {
           <IconButton
             color="warning"
             onClick={() => handleClickFavorite(user.id, user.favorite)}
-            data-e2e="users-table-favorite-button"
+            data-e2e="favorite-button"
           >
             <Tooltip title="Faviorite">
               {user.favorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
