@@ -21,13 +21,20 @@ import { AllUsers, User } from "@/services/types";
 import { useCallback, useEffect, useState } from "react";
 import { FavoriteUsersServices } from "@/services/favoriteUsers.services";
 
-const FavioriteUsersListing = ({ allUsers }: { allUsers: AllUsers }) => {
+export type FavoriteUsersListingProps = {
+  AllUsers: AllUsers;
+};
+const FavioriteUsersListing = ({
+  allUsers,
+}: {
+  allUsers: FavoriteUsersListingProps;
+}) => {
   const [filter, setFilter] = useState({
     page: 1,
     pageSize: 10,
-    total: allUsers.total,
+    total: allUsers.AllUsers.total,
   });
-  const [users, setUsers] = useState(allUsers.users);
+  const [users, setUsers] = useState(allUsers.AllUsers.users);
 
   const fetchUsers = useCallback((users: User[]) => {
     const favoriteUsers = FavoriteUsersServices.getFavoriteUsers();
@@ -83,9 +90,11 @@ const FavioriteUsersListing = ({ allUsers }: { allUsers: AllUsers }) => {
     <Card variant="outlined" data-e2e="users-table-card">
       <CardHeader title="Favorite Users" data-e2e="users-table-card-header" />
       <Divider />
-      <CardContent>
+      <CardContent data-e2e="users-table-card-content">
         <Paper sx={{ width: "100%", overflow: "hidden" }}>
-          <TableContainer sx={{ width: "100%" }}>
+          <TableContainer
+            sx={{ width: "100%" }}
+            data-e2e="users-table-card-table-container">
             <Table>
               <UsersListHead />
               <TableBody>
@@ -100,6 +109,7 @@ const FavioriteUsersListing = ({ allUsers }: { allUsers: AllUsers }) => {
                           key={index}
                           user={item}
                           onClickFavorite={handleClickFavorite}
+                          data-e2e={`{"users-table-card-table-${index}"}`}
                         />
                       );
                   })
@@ -112,8 +122,7 @@ const FavioriteUsersListing = ({ allUsers }: { allUsers: AllUsers }) => {
                           justifyContent: "center",
                           alignItems: "center",
                           p: 2,
-                        }}
-                      >
+                        }}>
                         <Typography variant="body1">
                           User is not found.
                         </Typography>

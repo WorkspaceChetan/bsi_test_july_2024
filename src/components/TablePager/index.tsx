@@ -29,8 +29,7 @@ const TablePager = ({
         alignItems: "center",
         gap: 1,
       }}
-      data-e2e="table-pager"
-    >
+      data-e2e="table-pager">
       <Pagination
         count={pagerCount || 1}
         onChange={(e, val) => handleChangePage(val)}
@@ -45,9 +44,12 @@ const TablePager = ({
           value={rowsPerPage}
           onChange={(e) => handleChangePageSize(e.target.value as number)}
           size="small"
-        >
+          data-e2e="table-pager-select">
           {[10, 25, 50, 100].map((row, index) => (
-            <MenuItem key={index} value={row}>
+            <MenuItem
+              key={index}
+              value={row}
+              data-e2e={`table-pager-select-item-${row}`}>
               {row}
             </MenuItem>
           ))}
